@@ -1,10 +1,12 @@
 const TextBox = (props) => {
   return (
-    <input
-      type={props.type}
-      className={props.class}
-      placeholder={props.placeholder}
-    />
+    <div className="form-group pb-2">
+      <input
+        type={props.type}
+        className="form-control"
+        placeholder={props.placeholder}
+      />
+    </div>
   );
 };
 
