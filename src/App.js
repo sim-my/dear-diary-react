@@ -1,15 +1,28 @@
 import "./App.css";
-
+import React, { useState } from "react";
 import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
 import CreatePost from "./views/CreatePost";
 import PostList from "./views/PostList.jsx";
 import NotFound from "./views/404";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
+
+
 import Register from "./views/Register";
 
-function App() {
+
+const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
   return (
     <Router>
       <div className="App">
@@ -49,26 +62,25 @@ function App() {
           </div>
         </nav>
         <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/create">
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/404" component={NotFound} />
+          <Route exact path="/">
+            !isAuth ? <Redirect to="login" from="*"/> :
+            <Dashboard />
+          </Route>
+          <Route exact path="/create">
+            !isAuth ? <Redirect to="login" from="*"/> :
             <CreatePost />
           </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/404">
-            <NotFound />
-          </Route>
-          <Route path="/posts">
+          <Route exact path="/posts">
+            !isAuth ? <Redirect to="login" from="*"/> :
             <PostList />
           </Route>
         </Switch>
       </div>
     </Router>
   );
-}
+};
 
 export default App;

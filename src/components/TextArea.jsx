@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-const TextArea = (props) => {
-  const [value, setValue] = useState("");
-
-  const handleInputChange = (event) => {
-    setValue(event.target.value);
-  };
+const TextArea = React.forwardRef((props, ref) => {
 
   return (
     <div className="form-group">
       <textarea
-        value={value}
-        onChange={handleInputChange}
+        ref={ref}
         placeholder={props.placeholder}
         className="form-control"
         rows={props.rows}
       ></textarea>
     </div>
   );
-};
+});
 
 export default TextArea;

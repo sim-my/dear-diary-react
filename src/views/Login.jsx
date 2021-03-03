@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 
 import * as auth from "../service/auth";
 
+import { withRouter } from 'react-router-dom';
+
 const Login = () => {
 
   const {register, handleSubmit} = useForm();
@@ -30,4 +32,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
