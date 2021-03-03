@@ -49,9 +49,7 @@ function App() {
           </div>
         </nav>
         <Switch>
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
+          <Route exact path="/" component={Dashboard} />
           <Route path="/create">
             <CreatePost />
           </Route>
