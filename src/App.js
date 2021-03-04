@@ -20,10 +20,12 @@ import Register from "./views/Register";
 const App = () => {
 
   const [isAuth, setIsAuth] = useState(false);
+  const [name, setName] = useState("");
 
 
   const handleChange = (newValue) => {
     setIsAuth(newValue);
+    setName(localStorage.getItem("name"));
   }
 
  
@@ -56,7 +58,7 @@ const App = () => {
                 data-toggle="dropdown"
                 aria-expanded="false"
               >
-                Simran Panthi
+                {name}
               </a>
               <div
                 className="dropdown-menu"
