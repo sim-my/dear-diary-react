@@ -4,6 +4,7 @@ import TextArea from "../components/TextArea";
 import DateControl from "../components/DateControl";
 import { Controller, useForm } from "react-hook-form";
 import { useHistory, Link } from "react-router-dom";
+import loadingImage from "../assets/images/loadingImage.gif"
 
 import * as ROUTES from "../constant/routes";
 
@@ -13,10 +14,12 @@ import * as postService from "../service/post";
 
 const EditPost = ({ match }) => {
   const [post, setPost] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     postService.singlePost(match.params.id).then((data) => {
       setPost(data);
+      setIsLoading(false);
     });
   });
 
@@ -29,7 +32,7 @@ const EditPost = ({ match }) => {
     history.push(ROUTES.posts);
   };
 
-  return post.length > 0 ? (
+  return !isLoading ? (
     <div className="ml-auto mr-auto shadow-sm m-4 w-75 border rounded p-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
@@ -73,7 +76,9 @@ const EditPost = ({ match }) => {
       </form>
     </div>
   ) : (
-    <div></div>
+    <div className="d-flex justify-content-center align-items-center mt-4 pt-4">
+      <img src={loadingImage} height="100" width="100" />
+    </div>
   );
 };
 

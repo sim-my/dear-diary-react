@@ -1,4 +1,4 @@
-import { Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import Button from "../components/Button";

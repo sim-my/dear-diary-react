@@ -9,9 +9,12 @@ import dateFormatter from "../utils/dateFormatter";
 
 import * as ROUTES from "../constant/routes";
 
+import loadingImage from "../assets/images/loadingImage.gif";
+
 const SinglePost = ({ match }) => {
   const [post, setPost] = useState([]);
   const [date, setDate] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
 
@@ -19,6 +22,7 @@ const SinglePost = ({ match }) => {
     postService.singlePost(match.params.id).then((data) => {
       setPost(data);
       setDate(dateFormatter(data[0].date));
+      setIsLoading(false);
     });
   });
 
@@ -26,7 +30,7 @@ const SinglePost = ({ match }) => {
     postService.deletePost(match.params.id);
     history.push(ROUTES.posts);
   };
-  return post.length > 0 ? (
+  return !isLoading ? (
     <div className="ml-auto mr-auto shadow-sm m-4 w-75 border rounded p-4">
       <div className="text-right">
         <Link to={ROUTES.buildEditPost(match.params.id)}>
@@ -48,7 +52,9 @@ const SinglePost = ({ match }) => {
       </h6>
     </div>
   ) : (
-    <div>loading</div>
+    <div className="d-flex justify-content-center align-items-center mt-4 pt-4">
+      <h6 className="text-danger">You don't have any posts.</h6>
+    </div>
   );
 };
 

@@ -10,11 +10,12 @@ import NotFound from "./views/404";
 import PrivateRoute from "./components/PrivateRoute";
 import * as ROUTES from "./constant/routes";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-router-dom";
 
 import Register from "./views/Register";
 
-const App = () => {
+const App = (props) => {
+  console.log(props)
   const [isAuth, setIsAuth] = useState(false);
   const [name, setName] = useState("");
 
@@ -35,15 +36,15 @@ const App = () => {
           <nav className="pl-4 pr-4 navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
             <div className="">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <Link className="nav-link" to={ROUTES.dashboard}>
+                <li className="nav-item">
+                  <NavLink activeClassName="active" exact={true} className="nav-link" to={ROUTES.dashboard}>
                     Home
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to={ROUTES.posts}>
+                  <NavLink activeClassName="active" exact={true} className="nav-link" to={ROUTES.posts}>
                     Posts
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </div>
