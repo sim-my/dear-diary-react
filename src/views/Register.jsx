@@ -7,13 +7,21 @@ import TextBox from "../components/TextBox";
 import * as auth from "../service/auth";
 import * as ROUTES from "../constant/routes";
 
-const Register = () => {
+import { connect } from "react-redux";
+
+import * as authActions from "../actions/authActions";
+
+const Register = (props) => {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
-    auth.register(data);
-    history.push(ROUTES.login)
+    auth.register(data).then((response) => {
+      props.register({ registered: true });
+      
+    });
+    history.push(ROUTES.login);
+    
   };
 
   return (
@@ -93,4 +101,17 @@ const Register = () => {
   );
 };
 
-export default Register;
+export const mapStateToProps = (state) => {
+  return {
+    registered: state.authReducer.registered,
+  };
+};
+
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (data) => dispatch(authActions.register(data))
+  }
+  
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

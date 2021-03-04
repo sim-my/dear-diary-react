@@ -6,20 +6,23 @@ import { Controller, useForm } from "react-hook-form";
 import { useHistory, Link } from "react-router-dom";
 import loadingImage from "../assets/images/loadingImage.gif"
 
+import { connect } from "react-redux";
+import * as postActions from "../actions/postActions";
+
 import * as ROUTES from "../constant/routes";
 
 import { useEffect, useState } from "react";
 
 import * as postService from "../service/post";
 
-const EditPost = ({ match }) => {
-  const [post, setPost] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+const EditPost = (props) => {
 
   useEffect(() => {
-    postService.singlePost(match.params.id).then((data) => {
-      setPost(data);
-      setIsLoading(false);
+    postService.singlePost(props.match.params.id).then((data) => {
+      props.setPost({
+        post: data[0],
+        isLoading: false,
+      });
     });
   });
 
@@ -28,11 +31,11 @@ const EditPost = ({ match }) => {
   const history = useHistory();
 
   const onSubmit = (data) => {
-    postService.updatePost(data, match.params.id);
+    postService.updatePost(data, props.match.params.id);
     history.push(ROUTES.posts);
   };
 
-  return !isLoading ? (
+  return !props.isLoading ? (
     <div className="ml-auto mr-auto shadow-sm m-4 w-75 border rounded p-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
@@ -41,13 +44,13 @@ const EditPost = ({ match }) => {
               name="title"
               ref={register}
               type="text"
-              defaultValue={post[0].title}
+              defaultValue={props.post.title}
               placeholder="Title"
             />
           </div>
           <div className="col-6 text-right">
             <Controller
-              defaultValue={new Date(post[0].date)}
+              defaultValue={new Date(props.post.date)}
               name="date"
               control={control}
               render={({ onChange, value, ref = { register } }) => (
@@ -64,7 +67,7 @@ const EditPost = ({ match }) => {
           name="story"
           ref={register}
           rows="12"
-          defaultValue={post[0].story}
+          defaultValue={props.post.story}
           placeholder="Write something..."
         />
         <div className="d-flex flex-row justify-content-end mt-4">
@@ -82,4 +85,20 @@ const EditPost = ({ match }) => {
   );
 };
 
-export default EditPost;
+const mapStateToProps = (state) => {
+  return {
+    post: state.postReducer.post,
+    isLoading: state.postReducer.isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPost: (data) => dispatch(postActions.displaySinglePost(data)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditPost);

@@ -10,39 +10,52 @@ import NotFound from "./views/404";
 import PrivateRoute from "./components/PrivateRoute";
 import * as ROUTES from "./constant/routes";
 
-import { BrowserRouter as Router, Switch, Route, Link, NavLink} from "react-router-dom";
+import * as authActions from "./actions/authActions";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink,
+  useHistory,
+} from "react-router-dom";
+
+import { connect } from "react-redux";
 
 import Register from "./views/Register";
 
 const App = (props) => {
-  console.log(props)
-  const [isAuth, setIsAuth] = useState(false);
-  const [name, setName] = useState("");
-
-  const handleChange = (newValue) => {
-    setIsAuth(newValue);
-    setName(localStorage.getItem("name"));
-  };
 
   const handleLogout = () => {
-    setIsAuth(false);
+    props.logout({ loggedIn: false });
     localStorage.clear();
   };
 
   return (
     <Router>
       <div className="App">
-        {isAuth ? (
+        {props.isLoggedIn ? (
           <nav className="pl-4 pr-4 navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
             <div className="">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <NavLink activeClassName="active" exact={true} className="nav-link" to={ROUTES.dashboard}>
+                  <NavLink
+                    activeClassName="active"
+                    exact={true}
+                    className="nav-link"
+                    to={ROUTES.dashboard}
+                  >
                     Home
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink activeClassName="active" exact={true} className="nav-link" to={ROUTES.posts}>
+                  <NavLink
+                    activeClassName="active"
+                    exact={true}
+                    className="nav-link"
+                    to={ROUTES.posts}
+                  >
                     Posts
                   </NavLink>
                 </li>
@@ -57,7 +70,7 @@ const App = (props) => {
                 data-toggle="dropdown"
                 aria-expanded="false"
               >
-                {name}
+                  {localStorage.getItem("name")}
               </a>
               <div
                 className="dropdown-menu"
@@ -76,24 +89,23 @@ const App = (props) => {
         ) : (
           <div></div>
         )}
-        <p>{isAuth}</p>
         <Switch>
           <Route exact path={ROUTES.login}>
-            <Login onAuthenticated={handleChange} />
+            <Login />
           </Route>
           <Route exact path={ROUTES.register} component={Register} />
           <Route exact path={ROUTES.notFound} component={NotFound} />
 
           <PrivateRoute
             redirectTo={ROUTES.login}
-            isAuthorized={isAuth}
+            isAuthorized={props.isLoggedIn}
             exact
             path={ROUTES.dashboard}
             component={Dashboard}
           />
           <PrivateRoute
             redirectTo={ROUTES.login}
-            isAuthorized={isAuth}
+            isAuthorized={props.isLoggedIn}
             exact
             path={ROUTES.createPost}
             component={CreatePost}
@@ -101,7 +113,7 @@ const App = (props) => {
 
           <PrivateRoute
             redirectTo={ROUTES.login}
-            isAuthorized={isAuth}
+            isAuthorized={props.isLoggedIn}
             exact
             path={ROUTES.posts}
             component={PostList}
@@ -109,7 +121,7 @@ const App = (props) => {
 
           <PrivateRoute
             redirectTo={ROUTES.login}
-            isAuthorized={isAuth}
+            isAuthorized={props.isLoggedIn}
             exact
             path={ROUTES.singlePost}
             component={SinglePost}
@@ -117,7 +129,7 @@ const App = (props) => {
 
           <PrivateRoute
             redirectTo={ROUTES.login}
-            isAuthorized={isAuth}
+            isAuthorized={props.isLoggedIn}
             exact
             path={ROUTES.editPost}
             component={EditPost}
@@ -128,4 +140,17 @@ const App = (props) => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.authReducer.loggedIn || localStorage.getItem("authorization"),
+    data: state.authReducer.data,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: (status) => dispatch(authActions.logout(status)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

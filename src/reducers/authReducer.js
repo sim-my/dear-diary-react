@@ -1,34 +1,37 @@
 import * as authActions from "../actions/authActions";
 
 const INITIAL_STATE = {
-
-    authenticated : false,
-
+  loggedIn: false,
+  registerd: false,
+  data:{}
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case authActions.LOGIN:
+      return {
+        ...state,
+        loggedIn: action.payload.loggedIn,
+        data: action.payload.data
+      };
 
-    switch(action.type){
+    case authActions.REGISTER:
+      return {
+        ...state,
+        registerd: action.payload.registered,
+        loggedIn: action.payload.loggedIn,
+      };
 
-        case authActions.LOGIN:
-            return{
-                ...state,
-                authenticated:true
-            }
+    case authActions.LOGOUT:
+      return {
+        ...state,
+        loggedIn: action.payload.loggedIn,
+        data: action.payload.data
+      };
 
-        case authActions.REGISTER:
-            return{
-                ...state,
-                authenticated:false
-            }
-
-        case authActions.LOGOUT:
-            return{
-                ...state,
-                authenticated:false
-            }
-    }
-
-}
+    default:
+      return state;
+  }
+};
 
 export default authReducer;

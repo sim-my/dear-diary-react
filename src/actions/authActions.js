@@ -1,5 +1,5 @@
-export const LOGIN = "LOGIN";
-export const REGISTER = "REGISTER";
+export const LOGIN = "LOGIN_SUCCESS";
+export const REGISTER = "REGISTER_SUCCESS";
 export const LOGOUT = "LOGOUT";
 
 export const login = payload => {
@@ -16,8 +16,10 @@ export const register = payload => {
     }
 };
 
-export const login = () => {
+
+export const logout = payload => {
     return {
-        type: LOGOUT
+        type: LOGOUT,
+        payload
     }
 };

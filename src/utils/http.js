@@ -40,7 +40,6 @@ export const post = (
     method: "POST",
     headers: { ...authHeaders, ...headers },
   }).then((response) => {
-    console.log(response.data)
     return response.data;
 
   }

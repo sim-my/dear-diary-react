@@ -4,7 +4,7 @@ export const postList = () => {
   const userId = localStorage.getItem("userId");
   return http
     .get(`posts/${userId}`, { accessToken: true })
-    .then(response => response.data);
+    .then((response) => response.data);
 };
 
 export const singlePost = (id) => {
@@ -30,7 +30,7 @@ export const updatePost = (postInfo, id) => {
 
 export const deletePost = (id) => {
   const userId = localStorage.getItem("userId");
-  http
-    .remove(`posts/${userId}/${id}`, {accessToken: true })
-    .then((response) => console.log(response));
+  return http
+    .remove(`posts/${userId}/${id}`, { accessToken: true })
+    .then((response) => response);
 };
