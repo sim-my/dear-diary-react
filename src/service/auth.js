@@ -9,6 +9,7 @@ export const login = (userInfo, callback) => {
     if (response.token) {
       localStorage.setItem("authorization", response.token);
       localStorage.setItem("userId", response.userId);
+      localStorage.setItem("name", response.first_name +" " +response.last_name);
       callback();
     } 
   });

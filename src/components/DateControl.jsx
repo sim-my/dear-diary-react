@@ -11,7 +11,7 @@ const DateControl = (props) => {
       <DatePicker
         className="form-control"
         name={props.name}
-        selected={props.selected}
+        selected={props.selected}        
         onChange={props.onChange}
       />
     </div>

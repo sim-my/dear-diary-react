@@ -3,7 +3,7 @@ import TextBox from "../components/TextBox";
 import TextArea from "../components/TextArea";
 import DateControl from "../components/DateControl";
 import { Controller, useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import * as post from "../service/post";
 
@@ -34,8 +34,12 @@ const CreatePost = () => {
               defaultValue={new Date()}
               name="date"
               control={control}
-              render={({ onChange, value, ref ={register} }) => (
-                <DateControl onChange={onChange} selected={value} inputRef={ref}/>
+              render={({ onChange, value, ref = { register } }) => (
+                <DateControl
+                  onChange={onChange}
+                  selected={value}
+                  inputRef={ref}
+                />
               )}
             />
           </div>
@@ -47,7 +51,9 @@ const CreatePost = () => {
           placeholder="Write something..."
         />
         <div className="d-flex flex-row justify-content-end mt-4">
-          <Button type="button" label="Cancel" class="mr-4 btn btn-danger" />
+          <Link to="/">
+            <Button type="button" label="Cancel" class="mr-4 btn btn-danger" />
+          </Link>
           <Button type="submit" label="Add New Story" class="btn btn-success" />
         </div>
       </form>

@@ -21,7 +21,6 @@ const App = () => {
 
   const [isAuth, setIsAuth] = useState(false);
 
-  console.log(isAuth)
 
   const handleChange = (newValue) => {
     setIsAuth(newValue);

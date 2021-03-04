@@ -1,12 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 import * as auth from "../service/auth";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000",
-  responseType: 'json',
+  baseURL: "http://localhost:8080",
+  responseType: "json",
 });
 
-export const get = (url, { params = {}, accessToken =  false, responseType = 'json', headers = {} } = {}) => {
+export const get = (
+  url,
+  { params = {}, accessToken = false, responseType = "json", headers = {} } = {}
+) => {
   const authHeaders = {};
   if (accessToken) {
     authHeaders.Authorization = auth.getAccessToken();
@@ -15,27 +18,17 @@ export const get = (url, { params = {}, accessToken =  false, responseType = 'js
     url,
     params,
     responseType,
-    method: 'GET',
+    method: "GET",
     headers: { ...authHeaders, ...headers },
-  }).then((response) => response.data)
-  .catch(err => err);
+  })
+    .then((response) => response.data)
+    .catch((err) => err);
 };
 
-export const post = (url, { params = {}, body = {}, accessToken = false, headers = {} } = {}) => {
-  const authHeaders = {};
-  if (accessToken) {    
-     authHeaders.Authorization = auth.getAccessToken();
-  }
-  return instance({
-    url,
-    params,
-    data: body,
-    method: 'POST',
-    headers: { ...authHeaders, ...headers },
-  }).then((response) => response.data)
-};
-
-export const put = (url, { params = {}, body = {}, accessToken = false, headers = {} } = {}) => {
+export const post = (
+  url,
+  { params = {}, body = {}, accessToken = false, headers = {} } = {}
+) => {
   const authHeaders = {};
   if (accessToken) {
     authHeaders.Authorization = auth.getAccessToken();
@@ -44,12 +37,38 @@ export const put = (url, { params = {}, body = {}, accessToken = false, headers 
     url,
     params,
     data: body,
-    method: 'PUT',
+    method: "POST",
+    headers: { ...authHeaders, ...headers },
+  }).then((response) => {
+    console.log(response.data)
+    return response.data;
+
+  }
+
+ );
+};
+
+export const put = (
+  url,
+  { params = {}, body = {}, accessToken = false, headers = {} } = {}
+) => {
+  const authHeaders = {};
+  if (accessToken) {
+    authHeaders.Authorization = auth.getAccessToken();
+  }
+  return instance({
+    url,
+    params,
+    data: body,
+    method: "PUT",
     headers: { ...authHeaders, ...headers },
   }).then((response) => response.data);
 };
 
-export const remove = (url, { params = {}, accessToken = false, headers = {} } = {}) => {
+export const remove = (
+  url,
+  { params = {}, accessToken = false, headers = {} } = {}
+) => {
   const authHeaders = {};
   if (accessToken) {
     authHeaders.Authorization = auth.getAccessToken();
@@ -57,7 +76,7 @@ export const remove = (url, { params = {}, accessToken = false, headers = {} } =
   return instance({
     url,
     params,
-    method: 'DELETE',
+    method: "DELETE",
     headers: { ...authHeaders, ...headers },
   }).then((response) => response.data);
 };

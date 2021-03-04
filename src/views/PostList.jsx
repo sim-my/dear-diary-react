@@ -35,7 +35,7 @@ const PostList = () => {
           return(
           <div key={index} className="row shadow-sm m-4  border rounded p-4">
             <div className="col-2">
-              <DateViewer />
+              <DateViewer date={value.date} />
             </div>
             <div className="col-10">
               <h4>{value.title}</h4>
