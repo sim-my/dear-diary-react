@@ -7,6 +7,8 @@ import * as postService from "../service/post";
 
 import dateFormatter from "../utils/dateFormatter";
 
+import * as ROUTES from "../constant/routes";
+
 const SinglePost = ({ match }) => {
   const [post, setPost] = useState([]);
   const [date, setDate] = useState({});
@@ -18,16 +20,16 @@ const SinglePost = ({ match }) => {
       setPost(data);
       setDate(dateFormatter(data[0].date));
     });
-  }, []);
+  });
 
   const handleDelete = () => {
     postService.deletePost(match.params.id);
-    history.push("/posts");
+    history.push(ROUTES.posts);
   };
   return post.length > 0 ? (
     <div className="ml-auto mr-auto shadow-sm m-4 w-75 border rounded p-4">
       <div className="text-right">
-        <Link to={`/posts/edit/${match.params.id}`}>
+        <Link to={ROUTES.buildEditPost(match.params.id)}>
           <Button type="button" label="Edit" class=" btn btn-primary mr-2" />
         </Link>
 

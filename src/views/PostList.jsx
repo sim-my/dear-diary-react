@@ -1,11 +1,13 @@
 import Button from "../components/Button";
 import DateViewer from "../components/DateViewer";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as post from "../service/post";
 
 import "../assets/styles/postList.css";
+
+import * as ROUTES from "../constant/routes";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -25,7 +27,7 @@ const PostList = () => {
   return (
     <div className="w-75 ml-auto mr-auto">
       <div className="text-right m-4">
-        <Link to="/create">
+        <Link to={ROUTES.createPost}>
           <Button
             type="button"
             label="Write a New Story!"
@@ -39,7 +41,7 @@ const PostList = () => {
         posts.length > 0 &&
         posts.map((value, index) => {
           return (
-            <Link className="link" key={index} to={`/posts/${value.id}`}>
+            <Link className="link" key={index} to={ROUTES.buildSinglePost(value.id)}>
               <div                
                 className="display-card row shadow-sm m-4  border rounded p-4"
               >

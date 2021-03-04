@@ -2,6 +2,7 @@ import Button from "../components/Button";
 import diary_illustration from "../assets/images/diary_illustration.png";
 
 import { Link } from "react-router-dom";
+import * as ROUTES from "../constant/routes";
 
 const Dashboard = () => {
   return (
@@ -13,9 +14,9 @@ const Dashboard = () => {
           You are now ready to start writing about your day. Share us
           everything. We won't tell anyone.
         </p>
-        <Link to="/create">
+        <Link to={ROUTES.createPost}>
           <Button
-            type="submit"
+            type="button"
             label="Write Your Story!"
             class="btn btn-success"
           />

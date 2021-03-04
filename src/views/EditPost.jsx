@@ -5,6 +5,8 @@ import DateControl from "../components/DateControl";
 import { Controller, useForm } from "react-hook-form";
 import { useHistory, Link } from "react-router-dom";
 
+import * as ROUTES from "../constant/routes";
+
 import { useEffect, useState } from "react";
 
 import * as postService from "../service/post";
@@ -16,7 +18,7 @@ const EditPost = ({ match }) => {
     postService.singlePost(match.params.id).then((data) => {
       setPost(data);
     });
-  }, []);
+  });
 
   const { register, handleSubmit, control } = useForm();
 
@@ -24,7 +26,7 @@ const EditPost = ({ match }) => {
 
   const onSubmit = (data) => {
     postService.updatePost(data, match.params.id);
-    history.push("/posts");
+    history.push(ROUTES.posts);
   };
 
   return post.length > 0 ? (
@@ -63,7 +65,7 @@ const EditPost = ({ match }) => {
           placeholder="Write something..."
         />
         <div className="d-flex flex-row justify-content-end mt-4">
-          <Link to="/">
+          <Link to={ROUTES.dashboard}>
             <Button type="button" label="Cancel" class="mr-4 btn btn-danger" />
           </Link>
           <Button type="submit" label="Update Story" class="btn btn-success" />

@@ -1,4 +1,4 @@
-import { Link, useHistory, withRouter } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import Button from "../components/Button";
@@ -7,26 +7,26 @@ import TextBox from "../components/TextBox";
 import { useForm } from "react-hook-form";
 import * as auth from "../service/auth";
 
+import * as ROUTES from "../constant/routes";
+
 const Login = (props) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const history = useHistory();
 
   const onSubmit = (data) => {
-    auth.login(data, () =>
-    {
+    auth.login(data, () => {
       if (localStorage.getItem("authorization")) {
         setIsLoggedIn(true);
         props.onAuthenticated(true);
       }
     });
-
   };
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push("/posts");
+      history.push(ROUTES.posts);
     }
   }, [isLoggedIn, history]);
 
@@ -36,17 +36,28 @@ const Login = (props) => {
         <h2>Welcome Back!</h2>
         <p>
           Don't have an account ?{" "}
-          <Link className="text-success" to="/register">
+          <Link className="text-success" to={ROUTES.register}>
             Sign Up
           </Link>
         </p>
-        <TextBox ref={register} name="email" type="email" placeholder="Email*" />
         <TextBox
-          ref={register}
+          ref={register({ required: true })}
+          name="email"
+          type="email"
+          placeholder="Email*"
+        />
+        {errors.password && errors.password.type === "required" && (
+          <h6 className="text-left text-danger">Invalid Password</h6>
+        )}
+        <TextBox
+          ref={register({ required: true })}
           name="password"
           type="password"
           placeholder="Password*"
         />
+        {errors.password && errors.password.type === "required" && (
+          <h6 className="text-left text-danger">Invalid Password</h6>
+        )}
         <Button type="submit" label="Login" class="btn btn-success" />
       </form>
     </div>

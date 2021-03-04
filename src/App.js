@@ -3,18 +3,14 @@ import React, { useState } from "react";
 import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
 import CreatePost from "./views/CreatePost";
-import PostList from "./views/PostList.jsx";
+import PostList from "./views/PostList";
 import SinglePost from "./views/SinglePost";
 import EditPost from "./views/EditPost";
 import NotFound from "./views/404";
 import PrivateRoute from "./components/PrivateRoute";
+import * as ROUTES from "./constant/routes";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Register from "./views/Register";
 
@@ -27,6 +23,11 @@ const App = () => {
     setName(localStorage.getItem("name"));
   };
 
+  const handleLogout = () => {
+    setIsAuth(false);
+    localStorage.clear();
+  };
+
   return (
     <Router>
       <div className="App">
@@ -35,12 +36,12 @@ const App = () => {
             <div className="">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
-                  <Link className="nav-link" to="/">
+                  <Link className="nav-link" to={ROUTES.dashboard}>
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/posts">
+                  <Link className="nav-link" to={ROUTES.posts}>
                     Posts
                   </Link>
                 </li>
@@ -61,7 +62,11 @@ const App = () => {
                 className="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <Link className="dropdown-item" to="/login">
+                <Link
+                  onClick={handleLogout}
+                  className="dropdown-item"
+                  to={ROUTES.login}
+                >
                   Logout
                 </Link>
               </div>
@@ -72,48 +77,48 @@ const App = () => {
         )}
         <p>{isAuth}</p>
         <Switch>
-          <Route exact path="/login">
+          <Route exact path={ROUTES.login}>
             <Login onAuthenticated={handleChange} />
           </Route>
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/404" component={NotFound} />
+          <Route exact path={ROUTES.register} component={Register} />
+          <Route exact path={ROUTES.notFound} component={NotFound} />
 
           <PrivateRoute
-            redirectTo="/login"
+            redirectTo={ROUTES.login}
             isAuthorized={isAuth}
             exact
-            path="/"
+            path={ROUTES.dashboard}
             component={Dashboard}
           />
           <PrivateRoute
-            redirectTo="/login"
+            redirectTo={ROUTES.login}
             isAuthorized={isAuth}
             exact
-            path="/create"
+            path={ROUTES.createPost}
             component={CreatePost}
           />
 
           <PrivateRoute
-            redirectTo="/login"
+            redirectTo={ROUTES.login}
             isAuthorized={isAuth}
             exact
-            path="/posts"
+            path={ROUTES.posts}
             component={PostList}
           />
 
           <PrivateRoute
-            redirectTo="/login"
+            redirectTo={ROUTES.login}
             isAuthorized={isAuth}
             exact
-            path="/posts/:id"
+            path={ROUTES.singlePost}
             component={SinglePost}
           />
 
           <PrivateRoute
-            redirectTo="/login"
+            redirectTo={ROUTES.login}
             isAuthorized={isAuth}
             exact
-            path="/posts/edit/:id"
+            path={ROUTES.editPost}
             component={EditPost}
           />
         </Switch>

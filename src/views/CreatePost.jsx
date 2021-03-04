@@ -4,6 +4,7 @@ import TextArea from "../components/TextArea";
 import DateControl from "../components/DateControl";
 import { Controller, useForm } from "react-hook-form";
 import { useHistory, Link } from "react-router-dom";
+import * as ROUTES from "../constant/routes";
 
 import * as post from "../service/post";
 
@@ -14,7 +15,7 @@ const CreatePost = () => {
 
   const onSubmit = (data) => {
     post.createPost(data);
-    history.push("/posts");
+    history.push(ROUTES.posts);
   };
 
   return (
@@ -51,7 +52,7 @@ const CreatePost = () => {
           placeholder="Write something..."
         />
         <div className="d-flex flex-row justify-content-end mt-4">
-          <Link to="/">
+          <Link to={ROUTES.dashboard}>
             <Button type="button" label="Cancel" class="mr-4 btn btn-danger" />
           </Link>
           <Button type="submit" label="Add New Story" class="btn btn-success" />
