@@ -47,10 +47,10 @@ const Login = (props) => {
           type="password"
           placeholder="Password"
         />
-        <input type="submit" value="Login" className="btn btn-success" />
+        <Button type="submit" label="Login" class="btn btn-success" />
       </form>
     </div>
   );
 };
 
-export default withRouter(Login);
+export default Login;

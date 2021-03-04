@@ -1,8 +1,9 @@
 import date from "../assets/images/date.png"
 
 import "../assets/styles/dateViewer.css"
+import React from "react";
 
-const DateViewer = () => {
+const DateViewer =  () => {
 
     
 
@@ -15,6 +16,6 @@ const DateViewer = () => {
         </div>
     )
 
-}
+};
 
 export default DateViewer;

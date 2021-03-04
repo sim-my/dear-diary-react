@@ -8,6 +8,7 @@ const TextArea = React.forwardRef((props, ref) => {
         ref={ref}
         placeholder={props.placeholder}
         className="form-control"
+        name={props.name}
         rows={props.rows}
       ></textarea>
     </div>
