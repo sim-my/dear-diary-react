@@ -17,7 +17,8 @@ export const get = (url, { params = {}, accessToken =  false, responseType = 'js
     responseType,
     method: 'GET',
     headers: { ...authHeaders, ...headers },
-  }).then((response) => response.data);
+  }).then((response) => response.data)
+  .catch(err => err);
 };
 
 export const post = (url, { params = {}, body = {}, accessToken = false, headers = {} } = {}) => {
@@ -31,7 +32,7 @@ export const post = (url, { params = {}, body = {}, accessToken = false, headers
     data: body,
     method: 'POST',
     headers: { ...authHeaders, ...headers },
-  }).then((response) => response.data);
+  }).then((response) => response.data)
 };
 
 export const put = (url, { params = {}, body = {}, accessToken = false, headers = {} } = {}) => {

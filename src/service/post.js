@@ -2,9 +2,9 @@ import * as http from "../utils/http";
 
 export const postList = () => {
   const userId = localStorage.getItem("userId");
-  http
+  return http
     .get(`posts/${userId}`, { accessToken: true })
-    .then((response) => console.log(response));
+    .then(response => response.data);
 };
 
 export const singlePost = (post) => {

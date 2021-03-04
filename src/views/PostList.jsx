@@ -2,14 +2,19 @@ import Button from "../components/Button";
 import DateViewer from "../components/DateViewer";
 
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as post from "../service/post";
 
 const PostList = () => {
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    post.postList();
-  })
+    post.postList().then((response) => {
+      setPosts(response);
+      setIsLoading(false);
+    });
+  }, []);
 
   return (
     <div className="w-75 ml-auto mr-auto">
@@ -22,34 +27,25 @@ const PostList = () => {
           />
         </Link>
       </div>
+      {isLoading ? (
+        <h2>Loading</h2>
+      ) : (
+        posts.length > 0 &&
+        posts.map((value, index) => {
+          return(
+          <div key={index} className="row shadow-sm m-4  border rounded p-4">
+            <div className="col-2">
+              <DateViewer />
+            </div>
+            <div className="col-10">
+              <h4>{value.title}</h4>
+              <p>{value.story}</p>
+            </div>
+          </div>
+          )
 
-      <div className="row shadow-sm m-4  border rounded p-4">
-        <div className="col-2">
-          <DateViewer />
-        </div>
-        <div className="col-10">
-          <h4>Title</h4>
-          <p>About Today</p>
-        </div>
-      </div>
-      <div className="row shadow-sm m-4  border rounded p-4">
-        <div className="col-2">
-          <DateViewer />
-        </div>
-        <div className="col-10">
-          <h4>Title</h4>
-          <p>About Today</p>
-        </div>
-      </div>
-      <div className="row shadow-sm m-4  border rounded p-4">
-        <div className="col-2">
-          <DateViewer />
-        </div>
-        <div className="col-10">
-          <h4>Title</h4>
-          <p>About Today</p>
-        </div>
-      </div>
+        })
+      )}
     </div>
   );
 };
