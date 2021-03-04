@@ -134,6 +134,7 @@ const App = (props) => {
             path={ROUTES.editPost}
             component={EditPost}
           />
+          <Route path='*' exact={true} component={NotFound} />
         </Switch>
       </div>
     </Router>
