@@ -7,7 +7,8 @@ const TextBox = React.forwardRef((props, ref) => {
       <input
         ref={ref}
         type={props.type}
-        name={props.name}    
+        name={props.name}  
+        defaultValue={props.defaultValue}  
         className='form-control'    
         placeholder={props.placeholder}
       />

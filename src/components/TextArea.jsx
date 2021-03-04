@@ -10,6 +10,7 @@ const TextArea = React.forwardRef((props, ref) => {
         className="form-control"
         name={props.name}
         rows={props.rows}
+        defaultValue={props.defaultValue}
       ></textarea>
     </div>
   );

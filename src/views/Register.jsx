@@ -28,7 +28,7 @@ const Register = () => {
             ref={register}
             type="text"
             name="username"
-            placeholder="Username"
+            placeholder="Username*"
           />
         </div>
         <div className="form-group pb-2">
@@ -36,7 +36,7 @@ const Register = () => {
             ref={register}
             type="text"
             name="first_name"
-            placeholder="First Name"
+            placeholder="First Name*"
           />
         </div>
         <div className="form-group pb-2">
@@ -44,7 +44,7 @@ const Register = () => {
             ref={register}
             type="text"
             name="last_name"
-            placeholder="Last Name"
+            placeholder="Last Name*"
           />
         </div>
         <div className="form-group pb-2">
@@ -52,7 +52,7 @@ const Register = () => {
             ref={register}
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email*"
           />
         </div>
         <div className="form-group pb-2">
@@ -60,7 +60,7 @@ const Register = () => {
             ref={register}
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Password*"
           />
         </div>
 

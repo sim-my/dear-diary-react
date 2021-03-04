@@ -1,36 +1,33 @@
 import "./App.css";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
 import CreatePost from "./views/CreatePost";
 import PostList from "./views/PostList.jsx";
+import SinglePost from "./views/SinglePost";
+import EditPost from "./views/EditPost";
 import NotFound from "./views/404";
-import PrivateRoute from "./components/PrivateRoute"
+import PrivateRoute from "./components/PrivateRoute";
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  Redirect,
 } from "react-router-dom";
 
 import Register from "./views/Register";
 
 const App = () => {
-
   const [isAuth, setIsAuth] = useState(false);
   const [name, setName] = useState("");
-
 
   const handleChange = (newValue) => {
     setIsAuth(newValue);
     setName(localStorage.getItem("name"));
-  }
+  };
 
- 
   return (
-    
     <Router>
       <div className="App">
         {isAuth ? (
@@ -102,6 +99,22 @@ const App = () => {
             exact
             path="/posts"
             component={PostList}
+          />
+
+          <PrivateRoute
+            redirectTo="/login"
+            isAuthorized={isAuth}
+            exact
+            path="/posts/:id"
+            component={SinglePost}
+          />
+
+          <PrivateRoute
+            redirectTo="/login"
+            isAuthorized={isAuth}
+            exact
+            path="/posts/edit/:id"
+            component={EditPost}
           />
         </Switch>
       </div>

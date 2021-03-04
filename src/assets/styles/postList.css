@@ -1,0 +1,13 @@
+.display-card:hover{
+    background-color: #ebfeeb;
+    cursor: pointer;
+}
+.link {
+    color: #000 !important;
+    text-decoration: none ;
+}
+
+.link{
+    color: #000  !important;
+    text-decoration: none  !important;
+}

@@ -40,12 +40,12 @@ const Login = (props) => {
             Sign Up
           </Link>
         </p>
-        <TextBox ref={register} name="email" type="email" placeholder="Email" />
+        <TextBox ref={register} name="email" type="email" placeholder="Email*" />
         <TextBox
           ref={register}
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Password*"
         />
         <Button type="submit" label="Login" class="btn btn-success" />
       </form>
