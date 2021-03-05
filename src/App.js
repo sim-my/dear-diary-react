@@ -1,34 +1,31 @@
-import "./App.css";
-import React, { useState } from "react";
-import Login from "./views/Login";
-import Dashboard from "./views/Dashboard";
-import CreatePost from "./views/CreatePost";
-import PostList from "./views/PostList";
-import SinglePost from "./views/SinglePost";
-import EditPost from "./views/EditPost";
-import NotFound from "./views/404";
-import PrivateRoute from "./components/PrivateRoute";
-import * as ROUTES from "./constant/routes";
-
-import * as authActions from "./actions/authActions";
-
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   NavLink,
-  useHistory,
 } from "react-router-dom";
 
-import { connect } from "react-redux";
-
+import Login from "./views/Login";
+import NotFound from "./views/404";
 import Register from "./views/Register";
+import PostList from "./views/PostList";
+import EditPost from "./views/EditPost";
+import Dashboard from "./views/Dashboard";
+import SinglePost from "./views/SinglePost";
+import CreatePost from "./views/CreatePost";
+
+import PrivateRoute from "./components/PrivateRoute";
+
+import * as ROUTES from "./constant/routes";
+import * as authActions from "./actions/authActions";
+
+import "./App.css";
 
 const App = (props) => {
-
   const handleLogout = () => {
-    props.logout({ loggedIn: false, data:[] });
+    props.logout({ loggedIn: false, data: [] });
     localStorage.clear();
   };
 
@@ -38,7 +35,7 @@ const App = (props) => {
         {localStorage.getItem("authorization") ? (
           <nav className="pl-4 pr-4 navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
             <div className="">
-                <ul className="navbar-nav mr-auto">
+              <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
                   <NavLink
                     activeClassName="active"
@@ -70,7 +67,7 @@ const App = (props) => {
                 data-toggle="dropdown"
                 aria-expanded="false"
               >
-                  {localStorage.getItem("name")}
+                {localStorage.getItem("name")}
               </a>
               <div
                 className="dropdown-menu"
@@ -86,8 +83,9 @@ const App = (props) => {
               </div>
             </div>
           </nav>
-        ) : <nav></nav>
-        }
+        ) : (
+          <nav></nav>
+        )}
         <Switch>
           <Route exact path={ROUTES.login}>
             <Login />
@@ -133,7 +131,7 @@ const App = (props) => {
             path={ROUTES.editPost}
             component={EditPost}
           />
-          <Route path='*' exact={true} component={NotFound} />
+          <Route path="*" exact={true} component={NotFound} />
         </Switch>
       </div>
     </Router>
@@ -142,7 +140,10 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.authReducer.loggedIn || localStorage.getItem("authorization") ? true : false,
+    isLoggedIn:
+      state.authReducer.loggedIn || localStorage.getItem("authorization")
+        ? true
+        : false,
     data: state.authReducer.data,
   };
 };

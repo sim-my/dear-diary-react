@@ -40,12 +40,8 @@ export const post = (
     method: "POST",
     headers: { ...authHeaders, ...headers },
   }).then((response) => {
- 
     return response.data;
-
-  }
-
- );
+  });
 };
 
 export const put = (

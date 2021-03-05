@@ -1,16 +1,15 @@
-import { Link, useHistory } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
+import { useAlert } from "react-alert";
+import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
 
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
 
-import { useForm } from "react-hook-form";
 import * as auth from "../service/auth";
-
-import * as authActions from "../actions/authActions";
 import * as ROUTES from "../constant/routes";
-import { useAlert } from "react-alert";
+import * as authActions from "../actions/authActions";
 
 const Login = (props) => {
   const { register, handleSubmit, errors, reset } = useForm();

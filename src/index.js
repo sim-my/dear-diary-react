@@ -17,7 +17,7 @@ const options = {
   timeout: 5000,
   offset: "30px",
   transition: "scale",
-  type:"error"
+  type: "error",
 };
 
 ReactDOM.render(

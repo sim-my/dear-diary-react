@@ -1,10 +1,6 @@
 const Button = (props) => {
   return (
-    <button
-      className={props.class}
-      onClick={props.onClick}
-      type={props.type}
-    >
+    <button className={props.class} onClick={props.onClick} type={props.type}>
       {props.label}
     </button>
   );

@@ -1,12 +1,13 @@
+import { useHistory, Link } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
 import TextArea from "../components/TextArea";
 import DateControl from "../components/DateControl";
-import { Controller, useForm } from "react-hook-form";
-import { useHistory, Link } from "react-router-dom";
-import * as ROUTES from "../constant/routes";
 
 import * as post from "../service/post";
+import * as ROUTES from "../constant/routes";
 
 const CreatePost = () => {
   const { register, handleSubmit, control } = useForm();

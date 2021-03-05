@@ -1,28 +1,27 @@
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
 import TextArea from "../components/TextArea";
 import DateControl from "../components/DateControl";
-import { Controller, useForm } from "react-hook-form";
-import { useHistory, Link } from "react-router-dom";
-import loadingImage from "../assets/images/loadingImage.gif"
-
-import { connect } from "react-redux";
-import * as postActions from "../actions/postActions";
 
 import * as ROUTES from "../constant/routes";
-
-import { useEffect, useState } from "react";
-
 import * as postService from "../service/post";
+import * as postActions from "../actions/postActions";
+
+import loadingImage from "../assets/images/loadingImage.gif";
 
 const EditPost = (props) => {
-
   useEffect(() => {
     postService.singlePost(props.match.params.id).then((data) => {
-      data &&  props.setPost({
-        post: data[0],
-        isLoading: false,
-      });
+      data &&
+        props.setPost({
+          post: data[0],
+          isLoading: false,
+        });
     });
   });
 
@@ -80,7 +79,7 @@ const EditPost = (props) => {
     </div>
   ) : (
     <div className="d-flex justify-content-center align-items-center mt-4 pt-4">
-      <img src={loadingImage} height="100" width="100" />
+      <img src={loadingImage} height="100" width="100" alt="loading" />
     </div>
   );
 };
@@ -98,7 +97,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditPost);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost);

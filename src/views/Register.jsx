@@ -1,16 +1,14 @@
-import { Link, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
 
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
 
 import * as auth from "../service/auth";
 import * as ROUTES from "../constant/routes";
-
-import { connect } from "react-redux";
-
 import * as authActions from "../actions/authActions";
-import { useAlert } from "react-alert";
 
 const Register = (props) => {
   const history = useHistory();
@@ -24,9 +22,9 @@ const Register = (props) => {
         reset();
       } else {
         props.register({ registered: true });
+        history.push(ROUTES.login);
       }
     });
-    history.push(ROUTES.login);
   };
 
   return (

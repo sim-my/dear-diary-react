@@ -1,24 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+
 import Button from "../components/Button";
 
-import { Link, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
-import * as postActions from "../actions/postActions";
-import * as postService from "../service/post";
-
-import dateFormatter from "../utils/dateFormatter";
-
 import * as ROUTES from "../constant/routes";
+import * as postService from "../service/post";
+import * as postActions from "../actions/postActions";
+
+import dateToString from "../utils/dateToString";
+import dateFormatter from "../utils/dateFormatter";
 
 import loadingImage from "../assets/images/loadingImage.gif";
 
 const SinglePost = (props) => {
   const history = useHistory();
 
-
   useEffect(() => {
     postService.singlePost(props.match.params.id).then((data) => {
-      data[0] && (data[0].formattedDate = dateFormatter(data[0].date));
+      data[0] &&
+        (data[0].formattedDate = dateToString(dateFormatter(data[0].date)));
       props.setPost({
         post: data[0],
         isLoading: false,
@@ -50,20 +51,12 @@ const SinglePost = (props) => {
       <h4>{props.post.title}</h4>
       <p>{props.post.story}</p>
       <h6 className="text-right">
-        {props.post.formattedDate
-          ? props.post.formattedDate.day +
-            ", " +
-            props.post.formattedDate.dd +
-            "-" +
-            props.post.formattedDate.mm +
-            "-" +
-            props.post.formattedDate.yyyy
-          : ""}
+        {props.post.formattedDate ? props.post.formattedDate : ""}
       </h6>
     </div>
   ) : (
     <div className="d-flex justify-content-center align-items-center mt-4 pt-4">
-      <img src={loadingImage} height="100" width="100" />
+      <img src={loadingImage} height="100" width="100" alt="loading" />
     </div>
   );
 };

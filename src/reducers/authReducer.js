@@ -3,7 +3,7 @@ import * as authActions from "../actions/authActions";
 const INITIAL_STATE = {
   loggedIn: false,
   registerd: false,
-  data:{}
+  data: {},
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -12,7 +12,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loggedIn: action.payload.loggedIn,
-        data: action.payload.data
+        data: action.payload.data,
       };
 
     case authActions.REGISTER:
@@ -26,7 +26,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loggedIn: action.payload.loggedIn,
-        data: action.payload.data
+        data: action.payload.data,
       };
 
     default:

@@ -1,24 +1,21 @@
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 import Button from "../components/Button";
 import DateViewer from "../components/DateViewer";
 
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import * as post from "../service/post";
-import loadingImage from "../assets/images/loadingImage.gif";
-
-import * as postActions from "../actions/postActions"
+import * as ROUTES from "../constant/routes";
+import * as postActions from "../actions/postActions";
 
 import "../assets/styles/postList.css";
-
-import {connect} from "react-redux";
-
-import * as ROUTES from "../constant/routes";
+import loadingImage from "../assets/images/loadingImage.gif";
 
 const PostList = (props) => {
-
   useEffect(() => {
     post.postList().then((response) => {
-      props.displayList({post:{},list:response, isLoading:false})
+      props.displayList({ post: {}, list: response, isLoading: false });
     });
   });
 
@@ -35,7 +32,7 @@ const PostList = (props) => {
       </div>
       {props.isLoading ? (
         <div className="d-flex justify-content-center align-items-center mt-4 pt-4">
-          <img src={loadingImage} height="100" width="100" />
+          <img src={loadingImage} height="100" width="100" alt="loading" />
         </div>
       ) : props.posts && props.posts.length > 0 ? (
         props.posts.map((value, index) => {
@@ -66,20 +63,17 @@ const PostList = (props) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    posts : state.postReducer.list,
-    isLoading: state.postReducer.isLoading
-  }
-}
+    posts: state.postReducer.list,
+    isLoading: state.postReducer.isLoading,
+  };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    displayList : posts => dispatch(postActions.displayList(posts))
-  }
-}
+    displayList: (posts) => dispatch(postActions.displayList(posts)),
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

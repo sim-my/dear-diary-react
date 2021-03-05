@@ -1,8 +1,10 @@
-import Button from "../components/Button";
-import diary_illustration from "../assets/images/diary_illustration.png";
-
 import { Link } from "react-router-dom";
+
+import Button from "../components/Button";
+
 import * as ROUTES from "../constant/routes";
+
+import diary_illustration from "../assets/images/diary_illustration.png";
 
 const Dashboard = () => {
   return (
@@ -23,7 +25,12 @@ const Dashboard = () => {
         </Link>
       </div>
       <div className="col-6 text-right pr-0">
-        <img height="300" width="300" src={diary_illustration} alt="Diary Illustration" />
+        <img
+          height="300"
+          width="300"
+          src={diary_illustration}
+          alt="Diary Illustration"
+        />
       </div>
     </div>
   );

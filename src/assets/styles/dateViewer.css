@@ -1,42 +1,42 @@
 .date-viewer {
-    position: relative;
-    height:100px;
-    width: 80px;
+  position: relative;
+  height: 100px;
+  width: 80px;
 }
 
-.date-viewer .date-img{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
+.date-viewer .date-img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .date-viewer .month {
-    position: absolute;
-    top: 1%;
-    left: 50%;
-    transform: translate(-50%,0);
-    z-index: 10;
-    font-weight: bold;
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 10;
+  font-weight: bold;
 }
 
 .date-viewer .date {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 10;
-    font-size: 24px;
-    font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .date-viewer .year {
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%,-80%);
-    z-index: 10;
-    font-size: 8px;
-    font-weight: bold;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  z-index: 10;
+  font-size: 8px;
+  font-weight: bold;
 }
