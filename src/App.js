@@ -28,17 +28,17 @@ import Register from "./views/Register";
 const App = (props) => {
 
   const handleLogout = () => {
-    props.logout({ loggedIn: false });
+    props.logout({ loggedIn: false, data:[] });
     localStorage.clear();
   };
 
   return (
     <Router>
       <div className="App">
-        {props.isLoggedIn ? (
+        {localStorage.getItem("authorization") ? (
           <nav className="pl-4 pr-4 navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
             <div className="">
-              <ul className="navbar-nav mr-auto">
+                <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
                   <NavLink
                     activeClassName="active"
@@ -86,9 +86,8 @@ const App = (props) => {
               </div>
             </div>
           </nav>
-        ) : (
-          <div></div>
-        )}
+        ) : <nav></nav>
+        }
         <Switch>
           <Route exact path={ROUTES.login}>
             <Login />
@@ -143,7 +142,7 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.authReducer.loggedIn || localStorage.getItem("authorization"),
+    isLoggedIn: state.authReducer.loggedIn || localStorage.getItem("authorization") ? true : false,
     data: state.authReducer.data,
   };
 };

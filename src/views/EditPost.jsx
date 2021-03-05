@@ -19,7 +19,7 @@ const EditPost = (props) => {
 
   useEffect(() => {
     postService.singlePost(props.match.params.id).then((data) => {
-      props.setPost({
+      data &&  props.setPost({
         post: data[0],
         isLoading: false,
       });

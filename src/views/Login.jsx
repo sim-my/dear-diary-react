@@ -31,7 +31,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (props.isLoggedIn) {
-      history.push(ROUTES.posts);
+      history.push(ROUTES.dashboard);
     }
   }, [props.isLoggedIn, history]);
 
