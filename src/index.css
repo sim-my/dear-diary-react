@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#__react-alert__ div div {
+  width: auto !important
+}
+#__react-alert__ div div div {
+  text-transform: none  !important;
+  font-size: small !important;
+}

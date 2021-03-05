@@ -10,18 +10,23 @@ import * as ROUTES from "../constant/routes";
 import { connect } from "react-redux";
 
 import * as authActions from "../actions/authActions";
+import { useAlert } from "react-alert";
 
 const Register = (props) => {
   const history = useHistory();
-  const { register, handleSubmit, errors } = useForm();
+  const alert = useAlert();
+  const { register, handleSubmit, errors, reset } = useForm();
 
   const onSubmit = (data) => {
     auth.register(data).then((response) => {
-      props.register({ registered: true });
-      
+      if (response.err) {
+        alert.show(response.err);
+        reset();
+      } else {
+        props.register({ registered: true });
+      }
     });
     history.push(ROUTES.login);
-    
   };
 
   return (
@@ -109,9 +114,8 @@ export const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    register: (data) => dispatch(authActions.register(data))
-  }
-  
+    register: (data) => dispatch(authActions.register(data)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

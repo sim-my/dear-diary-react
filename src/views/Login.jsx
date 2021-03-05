@@ -10,15 +10,22 @@ import * as auth from "../service/auth";
 
 import * as authActions from "../actions/authActions";
 import * as ROUTES from "../constant/routes";
+import { useAlert } from "react-alert";
 
 const Login = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
+  const alert = useAlert();
 
   const history = useHistory();
 
   const onSubmit = (data) => {
     auth.login(data).then((response) => {
-      props.login({ loggedIn: true, data: response });
+      if (response.err) {
+        alert.show(response.err);
+        reset();
+      } else {
+        props.login({ loggedIn: true, data: response.data });
+      }
     });
   };
 
